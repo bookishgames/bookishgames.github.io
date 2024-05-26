@@ -14,24 +14,24 @@ type CharacterData = {
   name: string;
 };
 
-type DialogueProps = {
+type DialogueData = {
   character: Character;
   message: string;
 };
 
-type ChoiceProps = {
+type ChoiceData = {
   name: string;
   isCorrect?: boolean;
   message?: string;
 };
 
-type DecisionProps = {
-  choices: ChoiceProps[];
+type DecisionData = {
+  choices: ChoiceData[];
 };
 
 type SceneData = {
-  dialogue?: DialogueProps;
-  decision?: DecisionProps;
+  dialogue?: DialogueData;
+  decision?: DecisionData;
 };
 
 const CHARACTERS: Record<Character, CharacterData> = {
@@ -77,7 +77,15 @@ export const GAME_SCENES: SceneData[] = [
       ]
     }
   },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Nice work, you found them!",
+    }
+  },
 ];
+
+type DialogueProps = DialogueData;
 
 function Dialogue({ character, message }: DialogueProps) {
   const { name, slug } = CHARACTERS?.[character];
@@ -96,7 +104,11 @@ function Dialogue({ character, message }: DialogueProps) {
   );
 }
 
-function Decision({ choices }: DecisionProps) {
+type DecisionProps = DecisionData & {
+  setNextIndex: () => void;
+};
+
+function Decision({ choices, setNextIndex }: DecisionProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const selectedChoice = choices?.[selected || -1] || null;
 
@@ -109,11 +121,18 @@ function Decision({ choices }: DecisionProps) {
       </div>
       <div className="choices">
         {choices.map(({ name, isCorrect, message }, i) => {
+          const selectedClass = i === selected ? "chosen" : "not-chosen";
+          const doSelect = (j: number) => {
+            setSelected(j);
+            if (isCorrect) {
+              setNextIndex();
+            }
+          };
           return (
             <div key={name} className="choice">
               <button
-                className="button secondary"
-                onClick={() => setSelected(i)}
+                className={`button secondary ${selectedClass}`}
+                onClick={() => doSelect(i)}
               >{name}</button>
             </div>
           );
@@ -173,8 +192,12 @@ export default function Game({ scenes }: GameProps) {
     return newIndex;
   };
 
+  const { dialogue, decision } = scenes[index];
+
+  const hasNextScene = index < scenes.length - 1;
+  const hasDecision = decision != null;
   const hasPrev = index > 0;
-  const hasNext = index < scenes.length - 1;
+  const hasNext = !hasDecision && hasNextScene;
   const setPrevIndex = () => setIndex(n => storeIndex(n - 1));
   const setNextIndex = () => setIndex(n => storeIndex(n + 1));
   const controlsProps = {
@@ -183,13 +206,11 @@ export default function Game({ scenes }: GameProps) {
     setPrevIndex,
     setNextIndex,
   };
-
-  const scene = scenes[index];
   return (
     <>
       <div className="game-container">
-        {scene.dialogue && <Dialogue {...scene.dialogue} />}
-        {scene.decision && <Decision {...scene.decision} />}
+        {dialogue && <Dialogue {...dialogue} />}
+        {decision && <Decision {...decision} setNextIndex={setNextIndex} />}
       </div>
       <Controls {...controlsProps} />
     </>

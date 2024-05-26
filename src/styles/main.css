@@ -169,3 +169,8 @@ button {
   margin: var(--unit) auto;
   width: 100%;
 }
+
+.decision .choices .choice .button.chosen {
+  background: var(--main);
+  color: var(--blank);
+}
