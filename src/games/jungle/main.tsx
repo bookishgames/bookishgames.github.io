@@ -47,6 +47,17 @@ function Letter() {
   );
 }
 
+function Map() {
+  return (
+    <div className="map">
+      <img
+        src="/images/jungle-stairs-map.png"
+        alt="A map with the north side of the 22nd and Castro intersection circled, with an arrow pointing to head west."
+      />
+    </div>
+  );
+}
+
 export const SCENES: SceneData[] = [
   {
     custom: {
@@ -130,7 +141,7 @@ export const SCENES: SceneData[] = [
   {
     dialogue: {
       character: Character.Naveen,
-      message: "Go to 3969 22nd Street!\nIf you are near the Muni 24 bus, that’s a great way to get there!\nWhen you reach the intersection of 22nd and Castro Street, head west (that’s the direction towards Twin Peaks). Walk on the north side of the street and you should find a pair of statues.\nLet us know when you get there.",
+      message: "Go to 3969 22nd Street!\nIf you are near the Muni 24 bus, that’s a great way to get there!\nWhen you reach the intersection of 22nd and Castro Street, head west (that’s the direction towards Twin Peaks). Walk on the north side of the street and you should find a pair of statues.\nI sent you a map below.\nLet us know when you get there.",
     },
     decision: {
       choices: [
@@ -140,6 +151,9 @@ export const SCENES: SceneData[] = [
         }
       ],
     },
+    custom: {
+      component: <Map />,
+    }
   },
   {
     dialogue: {

@@ -407,3 +407,12 @@ input {
   display: inline-block;
   width: 80%;
 }
+
+.map {
+  text-align: center;
+}
+
+.map img {
+  display: inline-block;
+  width: 100%;
+}
