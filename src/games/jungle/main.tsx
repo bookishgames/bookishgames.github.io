@@ -70,17 +70,50 @@ export const SCENES: SceneData[] = [
       message: "Nice to meet you, {NAME}!\nCan you help the Lucy Santos Detective Agency with a case in your neighborhood?\nWe’re busy in the Mission District helping a werewolf who runs a food truck find his missing secret ingredient before the full moon appears."
     },
   },
-  ...getDialogueSequence({
-    character: Character.Gabby,
-    messages: [
-      "Slow down, Lucy! First, I need to get them set up with our agency’s gadgets and spells.",
-      "Hey there, {NAME}! Thanks for helping us out. Open this website on your phone and I’ll give this page some magical powers. You’ll be able to keep in touch with us and work on the case even if you don’t have wifi.",
-    ],
-  }),
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Slow down, Lucy! First, I need to get them set up with our agency’s gadgets and spells.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Hey there, {NAME}! Thanks for helping us out.\nOpen this website on your phone and I’ll give this page some magical powers.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "I am on my phone.",
+          isCorrect: true,
+        }
+      ]
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Great!\nIf you are on iOS, tap the share button at the bottom center of your screen. Then, find and press the \"Add to Home Screen\" option.\nIf you are on Android, tap the three dots menu button in the top right corner of your phone. Then, find and press the \"Add to Home Screen\" option.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "All Done!",
+          isCorrect: true,
+        }
+      ],
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Excellent. Now close this page and open the app for our website on your phone.",
+    },
+  },
   {
     dialogue: {
       character: Character.Lucy,
-      message: "Here’s the letter, {NAME}. I believe in you!",
+      message: "Alright, let's get going!\nHere’s the letter, {NAME}. I believe in you!",
     },
   },
   {
