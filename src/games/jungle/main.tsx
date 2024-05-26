@@ -1,5 +1,17 @@
-import { SceneData, Character, getDialogueSequence } from '../../Game';
+import React from "react";
+import { SceneData, Character, getDialogueSequence } from "../../Game";
 
+function Letter() {
+  return (
+    <div className="game-content letter">
+      <p>Dear Lucy Santos Detective Agency,</p>
+      <p>Help me! I am lost and I don't know how to get home. I stepped through a portal in the forest and now I am stuck in some place the locals call Noe Valley.</p>
+      <p>Luckily, I found a small, tall jungle where I can rest. I saw signs for 22nd Street and Castro Street. I cuddled up in a pair of statues that sort of look like me. My fur is getting cold and I wish I could go home.</p>
+      <p>Please come soon,</p>
+      <p>Lalo</p>
+    </div>
+  );
+}
 
 export const SCENES: SceneData[] = [
   {
@@ -32,6 +44,11 @@ export const SCENES: SceneData[] = [
       character: Character.Lucy,
       message: "Here’s the letter, {NAME}. I believe in you!",
     },
+  },
+  {
+    custom: {
+      component: <Letter />,
+    }
   },
   {
     dialogue: {

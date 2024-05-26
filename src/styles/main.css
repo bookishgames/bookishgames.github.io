@@ -121,6 +121,7 @@ input {
 
 .game-container {
   --controls-height: 80px;
+  --translation-background: rgb(249, 242, 188);
   height: calc(100vh - var(--controls-height));
   overflow-y: scroll;
 }
@@ -191,7 +192,6 @@ input {
 }
 
 .dialogue .speech-bubble.translation {
-  --translation-background: rgb(249, 242, 188);
   border-radius: 0 0 var(--unit) var(--unit);
   background: var(--translation-background);
 }
@@ -225,4 +225,15 @@ input {
 
 .prompt .input {
   flex: 1;
+}
+
+.letter {
+  background: var(--translation-background);
+  margin: var(--unit2x);
+  padding: var(--unit2x);
+}
+
+.letter p {
+  margin: var(--unit2x);
+  line-height: 1.25;
 }

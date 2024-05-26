@@ -36,10 +36,15 @@ type PromptData = {
   variableKey?: string;
 };
 
+type CustomData = {
+  component: React.JSX.Element;
+};
+
 export type SceneData = {
   dialogue?: DialogueData;
   decision?: DecisionData;
   prompt?: PromptData;
+  custom?: CustomData;
 };
 
 type DialogueSequenceProps = {
@@ -270,7 +275,7 @@ export default function Game({ scenes }: GameProps) {
     });
   };
 
-  const { dialogue, decision, prompt } = scenes[index];
+  const { dialogue, decision, prompt, custom } = scenes[index];
 
   const hasNextScene = index < scenes.length - 1;
   const notSkippable = decision != null || prompt != null;
@@ -293,6 +298,7 @@ export default function Game({ scenes }: GameProps) {
         {dialogue && <Dialogue {...{ ...dialogue, variables }} />}
         {decision && <Decision {...{ ...decision, ...nextProps }} />}
         {prompt && <Prompt {...{ ...prompt, ...nextProps, ...varProps }} />}
+        {custom && custom.component}
       </div>
       <Controls {...controlsProps} />
     </>
