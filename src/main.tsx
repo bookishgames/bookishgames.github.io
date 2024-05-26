@@ -1,10 +1,10 @@
 /* global document */
 import React, { useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Game from './Game';
+import Game, { GAME_SCENES } from './Game';
 
 import './styles/main.css';
 
@@ -29,7 +29,7 @@ function AppRouting() {
   return (
     <Routes>
       <Route index element={<h1>Bookish Games</h1>} />
-      <Route path="jungle" element={<Game />} />
+      <Route path="jungle" element={<Game scenes={GAME_SCENES} />} />
       <Route path="*" element={<><h1>Error 404</h1><p>You might be lost.</p></>} />
     </Routes>
   );
@@ -46,4 +46,13 @@ function App() {
 }
 
 const rootEl = document.getElementById('root')!;
-createRoot(rootEl).render(<App />);
+let root: Root | undefined;
+document.addEventListener('DOMContentLoaded', () => {
+  root = createRoot(rootEl);
+  root.render(<App />);
+});
+
+const reuseRoot = root as Root;
+if (reuseRoot) {
+  reuseRoot.render(<App />);
+}
