@@ -28,8 +28,8 @@ h4,
 h5,
 h6,
 p,
-input,
-button {
+button,
+input {
   font-size: var(--font-size);
   margin: var(--unit);
   line-height: 1.1;
@@ -71,25 +71,46 @@ h6 {
   font-size: 20px;
 }
 
-button {
+button,
+input {
   box-sizing: border-box;
 }
 
-.button.secondary {
-  background: transparent;
-  border: 1px solid var(--main-dark);
+.button {
   border-radius: 5px;
   margin: var(--unit);
   padding: var(--unit);
 }
 
-.button.secondary:disabled {
+.button:disabled {
   opacity: 0.25;
+}
+
+.button.primary {
+  background: var(--main);
+  border: 1px solid var(--main-dark);
+  color: var(--blank);
+}
+
+.button.primary:not([disabled]):hover {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--blank);
+}
+
+.button.secondary {
+  background: transparent;
+  border: 1px solid var(--main-dark);
 }
 
 .button.secondary:not([disabled]):hover {
   background: var(--main);
   color: var(--blank);
+}
+
+.input {
+  border-radius: 5px;
+  border: 1px solid var(--main-dark);
 }
 
 .game-container,
@@ -128,7 +149,7 @@ button {
   padding: var(--unit) var(--unit2x);
 }
 
-.dialogue {
+.game-content {
   box-sizing: border-box;
   padding: var(--unit);
 }
@@ -153,7 +174,7 @@ button {
   content: "";
   position: relative;
   top: 25px;
-  left: calc(50% - 10px);
+  left: calc(50% - 15px);
   border-width: 15px;
   border-style: solid;
   border-color: transparent;
@@ -179,10 +200,6 @@ button {
   border-top-color: var(--translation-background);
 }
 
-.decision {
-  padding: var(--unit);
-}
-
 .decision .choices .choice .button {
   display: inline-block;
   margin: var(--unit) auto;
@@ -192,4 +209,20 @@ button {
 .decision .choices .choice .button.chosen {
   background: var(--main);
   color: var(--blank);
+}
+
+.prompt {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.prompt .input {
+  display: inline-block;
+  margin: var(--unit) auto;
+  padding: var(--unit);
+}
+
+.prompt .input {
+  flex: 1;
 }
