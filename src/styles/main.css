@@ -7,6 +7,7 @@ html {
   --font-size: 20px;
   --unit: 10px;
   --unit2x: 20px;
+  --unit-negative: -10px;
   --max-mobile-width: 412px;
   background: var(--main-dark);
   font-size: 0;
@@ -227,6 +228,19 @@ input {
   flex: 1;
 }
 
+.cover-image {
+  margin: var(--unit-negative);
+}
+
+.cover-image.full-height {
+  background: var(--main-dark);
+  height: calc(100vh - var(--controls-height));
+}
+
+.cover-image img {
+  width: 100%;
+}
+
 .letter {
   background: var(--translation-background);
   margin: var(--unit2x);
@@ -236,4 +250,13 @@ input {
 .letter p {
   margin: var(--unit2x);
   line-height: 1.25;
+}
+
+.badge {
+  text-align: center;
+}
+
+.badge img {
+  display: inline-block;
+  width: 80%;
 }

@@ -1,5 +1,39 @@
 import React from "react";
 import { SceneData, Character, getDialogueSequence } from "../../Game";
+import Portal from "./Portal";
+
+function OpeningCover() {
+  return (
+    <div className="cover-image full-height">
+      <img
+        src="/images/jungle-portal-opening.png"
+        alt="Lucy stands on the 22nd Street Jungle Staircase looking up at Sutro Tower and a magical portal."
+      />
+    </div>
+  );
+}
+
+function ClosingCover() {
+  return (
+    <div className="cover-image full-height">
+      <img
+        src="/images/jungle-portal-closing.png"
+        alt="Lalo enters the portal at the 22nd Street Jungle Staircase and says goodbye to Lucy. The end."
+      />
+    </div>
+  );
+}
+
+function Badge() {
+  return (
+    <div className="badge">
+      <img
+        src="/images/jungle-portal-badge.png"
+        alt="A colorful badge showing a magical jungle portal in recognition of completing the case of Lucy Santos and the Jungle Portal."
+      />
+    </div>
+  );
+}
 
 function Letter() {
   return (
@@ -14,6 +48,11 @@ function Letter() {
 }
 
 export const SCENES: SceneData[] = [
+  {
+    custom: {
+      component: <OpeningCover />,
+    }
+  },
   {
     dialogue: {
       character: Character.Lucy,
@@ -525,4 +564,114 @@ export const SCENES: SceneData[] = [
       ]
     }
   },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Alright, time to activate this portal! Are you going to open the portal by yourself or with a friend?",
+    },
+    decision: {
+      choices: [
+        {
+          name: "By Myself",
+          isCorrect: true,
+        },
+        {
+          name: "With a Friend",
+          isCorrect: true,
+        },
+      ]
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Fantastic. You got this, {NAME}!",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Excellent, twice the power! One of you should stand near the left staircase and one of you should stand near the right staircase. Once you pick a side, select your side on your phone.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "Left Staircase",
+          isCorrect: true,
+        },
+        {
+          name: "Right Staircase",
+          isCorrect: true,
+        },
+      ]
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Your phone has a device inside it called a gyroscope.\nA gyroscope is a tool that measures rotation. I have connected your gyroscopes to the portal, so you will be able to control the portal by rotating your phones.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Bird,
+      message: "The portal rings are lined with ancient letters. When you spell out your destination of choice, the portal will open and take your friend Lalo there! Look at your phones to see the next letter. Then, rotate until you can select that letter. Hold still for a second to lock in your choice.\nIf you don’t see the letter on your portal ring, it must be on your friend’s portal ring!",
+    },
+  },
+  {
+    custom: {
+      component: <Portal destination="ANDALUSIA" />,
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Portal energy readings are off the charts! You did it, {NAME}! Now you are a gyroscope expert.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Bird,
+      message: "The portal to the Dehesa in Andalusia is now open. Your friend can go home.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Lalo,
+      message: "¡Muchas gracias detectives! Me siento aliviado de regresar a casa.",
+      translation: "Thank you so much, detectives! I am relieved to return home.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Gabby,
+      message: "Way to go, {NAME}! I could use someone of your talents.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "I'm so happy Lalo could go home to be with the other lynxes!",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Congratulations on solving your first case with the Lucy Santos Detective Agency, {NAME}! I knew you had what it takes.",
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Please accept this badge as thanks for saving Lalo. I'll see you next time!",
+    },
+    custom: {
+      component: <Badge />,
+    }
+  },
+  {
+    custom: {
+      component: <ClosingCover />,
+    }
+  }
 ];
