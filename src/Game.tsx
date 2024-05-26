@@ -86,6 +86,15 @@ function injectVariables(message: string, variables: GameVariables): string {
   return message.replace(/{(\w+)}/g, (match, p1) => variables[p1] || match);
 }
 
+function Paragraphs({ message }: { message: string; }): React.JSX.Element {
+  const lines = message.split("\n");
+  return (
+    <>
+      {lines.map((line, i) => <p key={i}>{line}</p>)}
+    </>
+  );
+}
+
 function Dialogue({
   character,
   message,
@@ -95,12 +104,13 @@ function Dialogue({
   const { name, slug } = CHARACTERS?.[character];
   const src = `/images/${slug}.png`;
   const translationClass = translation ? 'with-translation' : 'no-translation';
+  const text = injectVariables(message, variables);
 
   return (
     <div className={`dialogue ${translationClass} game-content`}>
       <div className="speech-bubble message">
         <h3>{name}</h3>
-        <p>{injectVariables(message, variables)}</p>
+        <Paragraphs message={text} />
       </div>
       {translation && (
         <div className="speech-bubble translation">
