@@ -43,7 +43,38 @@ const CHARACTERS: Record<Character, CharacterData> = {
   [Character.Bird]: { slug: "bird", name: "Bird" },
 };
 
+type DialogueSequenceProps = {
+  character: Character;
+  messages: string[];
+};
+
+function getDialogueSequence({
+  character,
+  messages,
+}: DialogueSequenceProps): SceneData[] {
+  return messages.map((message) => ({
+    dialogue: {
+      character,
+      message,
+    }
+  }));
+}
+
 export const GAME_SCENES: SceneData[] = [
+  ...getDialogueSequence({
+    character: Character.Lucy,
+    messages: [
+      "Glad you made it, recruit! You are going to be great. Here’s a case in your neighborhood, can you take care of it?",
+      "We’re busy helping a werewolf who runs a food truck find his missing secret ingredient before the full moon appears.",
+    ],
+  }),
+  ...getDialogueSequence({
+    character: Character.Gabby,
+    messages: [
+      "Slow down, Lucy! First, I need to get them set up with our agency’s gadgets and spells.",
+      "Hey there, {NAME}! Thanks for helping us out. Open this website on your phone and I’ll give this page some magical powers. You’ll be able to keep in touch with us and work on the case even if you don’t have wifi.",
+    ],
+  }),
   {
     dialogue: {
       character: Character.Lucy,
