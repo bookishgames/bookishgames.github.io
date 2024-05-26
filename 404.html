@@ -13,8 +13,13 @@
 </head>
 
 <body>
-  <h1>Error 404</h1>
-  <p>You might be lost.</p>
+  <script type="text/javascript">
+
+    const destination = document.location.pathname + document.location.search;
+    localStorage.setItem("bookish__pathname", destination);
+    document.location.pathname = "/";
+
+  </script>
 </body>
 
 </html>
