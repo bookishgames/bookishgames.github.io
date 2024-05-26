@@ -160,6 +160,25 @@ button {
   border-top-color: var(--main-light);
 }
 
+.dialogue.with-translation .speech-bubble.message {
+  margin-bottom: 0;
+  border-radius: var(--unit) var(--unit) 0 0;
+}
+
+.dialogue.with-translation .speech-bubble.message::after {
+  display: none;
+}
+
+.dialogue .speech-bubble.translation {
+  --translation-background: rgb(249, 242, 188);
+  border-radius: 0 0 var(--unit) var(--unit);
+  background: var(--translation-background);
+}
+
+.dialogue .speech-bubble.translation::after {
+  border-top-color: var(--translation-background);
+}
+
 .decision {
   padding: var(--unit);
 }

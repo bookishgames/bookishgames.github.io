@@ -17,6 +17,7 @@ type CharacterData = {
 type DialogueData = {
   character: Character;
   message: string;
+  translation?: string;
 };
 
 type ChoiceData = {
@@ -83,20 +84,33 @@ export const GAME_SCENES: SceneData[] = [
       message: "Nice work, you found them!",
     }
   },
+  {
+    dialogue: {
+      character: Character.Lalo,
+      message: "¡No soy un gato, soy un lince!",
+      translation: "I am not a cat, I am a _____!",
+    }
+  },
 ];
 
 type DialogueProps = DialogueData;
 
-function Dialogue({ character, message }: DialogueProps) {
+function Dialogue({ character, message, translation }: DialogueProps) {
   const { name, slug } = CHARACTERS?.[character];
   const src = `/images/${slug}.png`;
+  const translationClass = translation ? 'with-translation' : 'no-translation';
 
   return (
-    <div className="dialogue">
-      <div className="speech-bubble">
+    <div className={`dialogue ${translationClass}`}>
+      <div className="speech-bubble message">
         <h3>{name}</h3>
         <p>{message}</p>
       </div>
+      {translation && (
+        <div className="speech-bubble translation">
+          <p>{translation}</p>
+        </div>
+      )}
       <div className="character">
         <img src={src} alt={name} />
       </div>
