@@ -1,1 +1,3 @@
-# bookishgames.github.io
+# Bookish Games
+
+The home of Bookish Games.

@@ -1,0 +1,19 @@
+{
+  "name": "Bookish Games",
+  "short_name": "Bookish",
+  "description": "Stories and games in your community.",
+  "theme_color": "#011421",
+  "background_color": "#011421",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "any maskable"
+    }
+  ]
+}
