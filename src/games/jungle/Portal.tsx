@@ -5,6 +5,10 @@ type PortalProps = {
   destination: string;
 };
 
+type ModernDeviceOrientationEvent = DeviceOrientationEvent & {
+  requestPermission?: () => Promise<string>;
+};
+
 export default function Portal({ destination }: PortalProps) {
   const [data, setData] = useState<string>('');
   useEffect(() => {
@@ -16,13 +20,17 @@ export default function Portal({ destination }: PortalProps) {
       const data = { alpha, beta, gamma };
 
       console.log({ data });
-      setData(JSON.stringify(data));
+      setData(`Alpha: ${alpha.toFixed(2)}\nBeta: ${beta.toFixed(2)}\nGamma: ${gamma.toFixed(2)}`);
     }
 
-    if (window.DeviceOrientationEvent) {
+    const MaybeDeviceOrientationEvent = (
+      window.DeviceOrientationEvent as unknown as ModernDeviceOrientationEvent
+    );
+
+    if (MaybeDeviceOrientationEvent) {
       // Check if iOS 13+ requires permission
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
+      if (typeof MaybeDeviceOrientationEvent.requestPermission === 'function') {
+        MaybeDeviceOrientationEvent.requestPermission()
           .then(permissionState => {
             if (permissionState === 'granted') {
               window.addEventListener('deviceorientation', handleOrientation);
