@@ -17,10 +17,13 @@ export default function Portal({ destination }: PortalProps) {
       const alpha = event.alpha; // Rotation around z-axis (0 to 360 degrees)
       const beta = event.beta;   // Rotation around x-axis (-180 to 180 degrees)
       const gamma = event.gamma; // Rotation around y-axis (-90 to 90 degrees)
-      const data = { alpha, beta, gamma };
 
-      console.log({ data });
-      setData(`Alpha: ${alpha.toFixed(2)}\nBeta: ${beta.toFixed(2)}\nGamma: ${gamma.toFixed(2)}`);
+      const dataContent = `
+      Alpha: ${alpha.toFixed(2)}\n
+      Beta: ${beta.toFixed(2)}\n
+      Gamma: ${gamma.toFixed(2)}\n
+      `.trim();
+      setData(dataContent);
     }
 
     const MaybeDeviceOrientationEvent = (
