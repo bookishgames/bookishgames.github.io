@@ -30,7 +30,8 @@ h5,
 h6,
 p,
 button,
-input {
+input,
+pre {
   font-size: var(--font-size);
   margin: var(--unit);
   line-height: 1.1;
@@ -70,6 +71,10 @@ h5 {
 
 h6 {
   font-size: 20px;
+}
+
+pre {
+  font-family: monospace;
 }
 
 button,
