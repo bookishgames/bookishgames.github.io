@@ -373,4 +373,156 @@ export const SCENES: SceneData[] = [
       message: "That's not it. Try again.",
     }
   },
+  ...getDialogueSequence({
+    character: Character.Bird,
+    messages: [
+      "Hello, detective! I overheard you talking with that poor lynx. You must be looking for the Jungle Stairs portal. Like all jungles, we are connected by interdimensional pathways that allow creatures of jungles, forests, and woodlands to help each other in times of need.",
+      "You can activate this jungle’s portal from the main staircase on the other side. Continue up this staircase, then cross Collingwood Street. Continue west and you will find the other staircase. If you look to the west, you’ll have a clear view of Sutro Tower, which is the key to opening the portal.",
+      "One more thing: the portal is useless without a destination. If you want to help that lynx get home, you’ll need to know where his home forest is and think about that location when you activate the portal.",
+    ],
+  }),
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Ask Lalo where his home is!",
+    },
+    decision: {
+      choices: [
+        {
+          name: "Where are you from, Lalo?",
+          message: "Ask him in Spanish!",
+        },
+        {
+          name: "¿De dónde eres, Lalo?",
+          isCorrect: true,
+        },
+      ]
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Lalo,
+      message: "¡Soy de mi casa! Vivo en un hermoso bosque.",
+      translation: "I am from my home! I live in a beautiful forest.",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "Ahh, our lynx friend has probably never been this far from home. But I trust you to figure out where he’s from.",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "There are four species of lynx in the whole world. If you figure out which kind of lynx Lalo is, we can find his home.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "Canada Lynx",
+          message: "That's not it. Try again.",
+        },
+        {
+          name: "Eurasian Lynx",
+          message: "That's not it. Try again.",
+        },
+        {
+          name: "Iberian Lynx",
+          isCorrect: true,
+        },
+        {
+          name: "Red Lynx",
+          message: "Commonly known as the bobcat! But that's not it. Try again.",
+        },
+      ]
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "You’re right! Wait a minute… the Iberian lynx is an endangered species.\nAccording to the International Union for Conservation of Nature, back in 2002, there were only 94 Iberian lynx in the whole world.",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Is the plural of lynx lynx or lynxes?? By the way, a group of lynxes is called a chain!",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "So cool! Oh, and either plural form works.\nBut many people and organizations worked hard to repair the lynxes’ habitats, resupply the rabbits they eat, and protect their chains. As of May 2023, the population of Iberian lynx has grown to 1,668!",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "So cool! I’m glad they helped out those sweet kitties!",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Lalo,
+      message: "¡No soy un gato, soy un lince!",
+      translation: "I am not a cat, I am a lynx!",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "The Iberian lynx are from the Iberian peninsula, which is the part of the world where Spain and Portugal are! The lynx live in the Dehesa, a special type of forest in the Andalusia region of Spain. That’s where the city of Seville is!",
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Now that we know Lalo’s home, let’s go find that portal! Follow the blue bird’s instructions to find the main staircase.\nContinue up this staircase, then cross Collingwood Street. Continue west and you will find the other staircase. If you look to the west, you’ll have a clear view of Sutro Tower.\nLet us know when you get there.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "I found the main staircase.",
+          isCorrect: true,
+        }
+      ]
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "What do you see near the top of the stairs on the north side?",
+    },
+    decision: {
+      choices: [
+        {
+          name: "Book Case",
+          isCorrect: true,
+        },
+        {
+          name: "Clock Tower",
+          message: "That's not it. Keep searching.",
+        },
+        {
+          name: "Gumball Machine",
+          message: "That's not it. Keep searching.",
+        },
+      ]
+    }
+  },
+  {
+    dialogue: {
+      character: Character.Bird,
+      message: "You made it! Head down to the middle where the two staircases meet and look west to find Sutro Tower.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "Found it.",
+          isCorrect: true,
+        }
+      ]
+    }
+  },
 ];
