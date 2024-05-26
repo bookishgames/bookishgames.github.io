@@ -9,56 +9,28 @@ type ModernDeviceOrientationEvent = DeviceOrientationEvent & {
   requestPermission?: () => Promise<string>;
 };
 
+const TOTAL_DEGREES = 360;
+
 export default function Portal({ destination }: PortalProps) {
-  const [data, setData] = useState<string>('');
-  useEffect(() => {
+  const symbols = destination.toUpperCase().split("");
+  const degreesPerSymbol = TOTAL_DEGREES / symbols.length;
 
-    function handleOrientation(event) {
-      const alpha = event.alpha; // Rotation around z-axis (0 to 360 degrees)
-      const beta = event.beta;   // Rotation around x-axis (-180 to 180 degrees)
-      const gamma = event.gamma; // Rotation around y-axis (-90 to 90 degrees)
-
-      const dataContent = `
-      Alpha: ${alpha.toFixed(2)}\n
-      Beta: ${beta.toFixed(2)}\n
-      Gamma: ${gamma.toFixed(2)}\n
-      `.trim();
-      setData(dataContent);
-    }
-
-    const MaybeDeviceOrientationEvent = (
-      window.DeviceOrientationEvent as unknown as ModernDeviceOrientationEvent
-    );
-
-    if (MaybeDeviceOrientationEvent) {
-      // Check if iOS 13+ requires permission
-      if (typeof MaybeDeviceOrientationEvent.requestPermission === 'function') {
-        MaybeDeviceOrientationEvent.requestPermission()
-          .then(permissionState => {
-            if (permissionState === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-            } else {
-              console.error('Permission denied for DeviceOrientationEvent');
-            }
-          })
-          .catch(console.error);
-      } else {
-        // Non-iOS 13+ devices
-        window.addEventListener('deviceorientation', handleOrientation);
-      }
-    } else {
-      console.error('DeviceOrientationEvent is not supported on this device.');
-    }
-
-    return () => {
-      window.removeEventListener("deviceorientation", handleOrientation);
-    };
-  }, [destination]);
 
   return (
     <div className="game-content portal">
-      <h2>Portal</h2>
-      <pre>{data || "No Data"}</pre>
+      <div className="outer-ring">
+        <div className="inner-ring">
+          {symbols.map((symbol, i) => {
+            const degrees = i * degreesPerSymbol;
+            return (
+              <div key={i} className="symbol" style={{
+                transform: `rotate(${degrees}deg) translate(125px) rotate(90deg)`
+              }}
+              >{symbol}</div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

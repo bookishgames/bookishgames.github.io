@@ -416,3 +416,40 @@ input {
   display: inline-block;
   width: 100%;
 }
+
+.portal {
+  text-align: center;
+}
+
+.portal .inner-ring,
+.portal .outer-ring {
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.portal .inner-ring {
+  margin-top: 47.5px;
+  width: 200px;
+  height: 200px;
+  background: var(--blank);
+  transform: rotate(-90deg);
+}
+
+.portal .outer-ring {
+  width: 300px;
+  height: 300px;
+  background: var(--main-dark);
+}
+
+.portal .symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: -15px;
+  margin-left: -15px;
+  color: var(--main-accent);
+}
