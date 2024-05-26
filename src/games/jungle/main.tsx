@@ -64,13 +64,12 @@ export const SCENES: SceneData[] = [
       placeholder: "Your Name",
     },
   },
-  ...getDialogueSequence({
-    character: Character.Lucy,
-    messages: [
-      "Nice to meet you, {NAME}. You are going to be great. Here’s a case in your neighborhood, can you take care of it?",
-      "We’re busy helping a werewolf who runs a food truck find his missing secret ingredient before the full moon appears.",
-    ],
-  }),
+  {
+    dialogue: {
+      character: Character.Lucy,
+      message: "Nice to meet you, {NAME}!\nCan you help the Lucy Santos Detective Agency with a case in your neighborhood?\nWe’re busy in the Mission District helping a werewolf who runs a food truck find his missing secret ingredient before the full moon appears."
+    },
+  },
   ...getDialogueSequence({
     character: Character.Gabby,
     messages: [
