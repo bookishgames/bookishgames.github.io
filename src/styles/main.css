@@ -211,19 +211,19 @@ input {
   color: var(--blank);
 }
 
-.prompt {
+.input-row {
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
-.prompt .input {
+.input-row .input {
   display: inline-block;
   margin: var(--unit) auto;
   padding: var(--unit);
 }
 
-.prompt .input {
+.input-row .input {
   flex: 1;
 }
 

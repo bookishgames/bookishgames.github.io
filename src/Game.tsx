@@ -34,6 +34,8 @@ type PromptData = {
   label: string;
   placeholder: string;
   variableKey?: string;
+  answer?: string;
+  message?: string;
 };
 
 type CustomData = {
@@ -178,11 +180,15 @@ function Prompt({
   label,
   placeholder,
   variableKey,
+  answer,
+  message,
   setNextIndex,
   variables,
   setVariable,
 }: PromptProps) {
   const [value, setValue] = useState<string>('');
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+
   useEffect(() => {
     if (variableKey == null) return;
     const savedValue = variables?.[variableKey];
@@ -190,25 +196,40 @@ function Prompt({
       setValue(savedValue);
     }
   }, [variableKey, variables]);
+
   const doSubmit = (key: string | null, val: string) => {
     if (key != null) {
       setVariable(key, val);
     }
-    setNextIndex();
+    if (answer == null) {
+      setNextIndex();
+      return;
+    }
+    const submitted = value.trim().toLowerCase();
+    if (submitted === answer) {
+      setShowMessage(false);
+      setNextIndex();
+    } else {
+      setShowMessage(true);
+    }
   };
+
   return (
     <div className="prompt game-content">
-      <input
-        className="input"
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <button
-        className="button primary"
-        onClick={() => doSubmit(variableKey ?? null, value)}
-      >{label}</button>
+      {showMessage && <p>{message}</p>}
+      <div className="input-row">
+        <input
+          className="input"
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <button
+          className="button primary"
+          onClick={() => doSubmit(variableKey ?? null, value)}
+        >{label}</button>
+      </div>
     </div>
   );
 }
@@ -292,7 +313,11 @@ export default function Game({ scenes }: GameProps) {
   const hasPrev = index > 0;
   const hasNext = !notSkippable && hasNextScene;
   const setPrevIndex = () => setIndex(n => storeIndex(n - 1));
-  const setNextIndex = () => setIndex(n => storeIndex(n + 1));
+  const setNextIndex = () => setIndex((n) => {
+    const next = n + 1;
+    if (next >= scenes.length) return n;
+    return storeIndex(n + 1);
+  });
   const controlsProps = {
     hasPrev,
     hasNext,

@@ -200,7 +200,15 @@ export const SCENES: SceneData[] = [
       character: Character.Lalo,
       message: "¡No soy un gato, soy un lince!",
       translation: "I am not a cat, I am a _____!",
-    }
+    },
+    decision: {
+      choices: [
+        {
+          name: "The translator didn't work!",
+          isCorrect: true,
+        },
+      ]
+    },
   },
   {
     dialogue: {
@@ -327,7 +335,9 @@ export const SCENES: SceneData[] = [
     },
     prompt: {
       label: "Submit",
-      placeholder: "Translate ayudarme"
+      placeholder: "Translate ayudarme",
+      answer: "help me",
+      message: "That's not it. Try again.",
     }
   },
   {
@@ -341,6 +351,26 @@ export const SCENES: SceneData[] = [
     dialogue: {
       character: Character.Gabby,
       message: "Nice work, {NAME}. We’re picking up an energy signal for a blue bird! She should be nearby. Keep walking west on 22nd Street and head up the Jungle Stairs to look for her.",
+    },
+    decision: {
+      choices: [
+        {
+          name: "I found the blue bird!",
+          isCorrect: true,
+        },
+      ]
+    },
+  },
+  {
+    dialogue: {
+      character: Character.Naveen,
+      message: "The blue bird’s energy is coming out of that mural!\nOur detectives can communicate with creatures inside murals by using the name of the person who painted the mural.\nLook for a signature then enter their name into your phone!",
+    },
+    prompt: {
+      label: "Submit",
+      placeholder: "Who signed the mural?",
+      answer: "fnnch",
+      message: "That's not it. Try again.",
     }
   },
 ];
