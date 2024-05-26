@@ -141,7 +141,7 @@ export const SCENES: SceneData[] = [
   {
     dialogue: {
       character: Character.Naveen,
-      message: "Go to 3969 22nd Street!\nIf you are near the Muni 24 bus, that’s a great way to get there!\nWhen you reach the intersection of 22nd and Castro Street, head west (that’s the direction towards Twin Peaks). Walk on the north side of the street and you should find a pair of statues.\nI sent you a map below.\nLet us know when you get there.",
+      message: "Go to 3969 22nd Street!\nIf you are near the Muni 24 bus, that’s a great way to get there! Get off at the 22nd and Castro stop.\nWhen you reach the intersection of 22nd and Castro Street, head west (that’s the direction towards Twin Peaks).\nI sent you a map of the area below.\nLet us know when you get there.",
     },
     decision: {
       choices: [
@@ -158,7 +158,7 @@ export const SCENES: SceneData[] = [
   {
     dialogue: {
       character: Character.Lucy,
-      message: "You made it to the 22nd Street Jungle Stairs! Great work. Did you find the pair of statues where our friend Lalo is hiding? What do they look like?",
+      message: "You made it to the 22nd Street Jungle Stairs!\nDid you find the pair of statues where our friend Lalo is hiding? Walk on the north side of the street and you should find them.\nWhat do they look like?",
     },
     decision: {
       choices: [
