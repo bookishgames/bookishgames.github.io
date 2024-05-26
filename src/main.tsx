@@ -4,7 +4,8 @@ import { createRoot, Root } from 'react-dom/client';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Game, { GAME_SCENES } from './Game';
+import Game from './Game';
+import { SCENES as JUNGLE_SCENES } from './games/jungle/main';
 
 import './styles/main.css';
 
@@ -29,7 +30,7 @@ function AppRouting() {
   return (
     <Routes>
       <Route index element={<h1>Bookish Games</h1>} />
-      <Route path="jungle" element={<Game scenes={GAME_SCENES} />} />
+      <Route path="jungle" element={<Game scenes={JUNGLE_SCENES} />} />
       <Route path="*" element={<><h1>Error 404</h1><p>You might be lost.</p></>} />
     </Routes>
   );
