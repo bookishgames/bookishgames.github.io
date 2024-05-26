@@ -15,12 +15,8 @@ type OrientationData = {
   gamma: number;
 };
 
-function useOrientation(deps?: React.DependencyList) {
-  const [data, setData] = useState<OrientationData>({
-    alpha: 0,
-    beta: 0,
-    gamma: 0,
-  });
+function useDeviceOrientation(deps?: React.DependencyList) {
+  const [data, setData] = useState<OrientationData | null>(null);
 
   useEffect(() => {
 
@@ -65,14 +61,46 @@ function useOrientation(deps?: React.DependencyList) {
   return data;
 }
 
+type OrientationSliderProps = {
+  sliderOrientation: OrientationData;
+  setSliderOrientation: React.Dispatch<React.SetStateAction<OrientationData>>;
+};
+
+function OrientationSlider({
+  sliderOrientation,
+  setSliderOrientation,
+}: OrientationSliderProps) {
+  return (
+    <div className="orientation-slider">
+      <p>If your gyroscope isn't working, you can use this slider to control the portal.</p>
+      <input
+        type="range"
+        min={0} max={360}
+        value={sliderOrientation.alpha}
+        onChange={(e) => {
+          const alpha = parseInt(e.target.value, 10);
+          setSliderOrientation((d) => ({ ...d, alpha }));
+        }}
+      />
+    </div>
+  );
+}
+
 const TOTAL_DEGREES = 360;
 const QUARTER_DEGREES = 90;
 
 export default function Portal({ destination }: PortalProps) {
   const symbols = destination.toUpperCase().split("");
   const degreesPerSymbol = TOTAL_DEGREES / symbols.length;
-  const orientation = useOrientation();
+  const deviceOrientation = useDeviceOrientation();
+  const [sliderOrientation, setSliderOrientation] = useState<OrientationData>({
+    alpha: 0,
+    beta: 0,
+    gamma: 0,
+  });
+  const orientation = deviceOrientation ?? sliderOrientation;
   const pointerDegrees = (orientation.alpha + QUARTER_DEGREES) % TOTAL_DEGREES;
+  const sliderProps = { sliderOrientation: orientation, setSliderOrientation };
 
   return (
     <div className="game-content portal">
@@ -93,6 +121,7 @@ export default function Portal({ destination }: PortalProps) {
           })}
         </div>
       </div>
+      <OrientationSlider {...sliderProps} />
     </div>
   );
 }
