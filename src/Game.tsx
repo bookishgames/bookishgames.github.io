@@ -235,30 +235,54 @@ function Prompt({
 }
 
 type ControlsProps = {
+  isStart: boolean;
+  isEnd: boolean;
   hasPrev: boolean;
   hasNext: boolean;
   setPrevIndex: () => void;
   setNextIndex: () => void;
+  startOver: () => void;
 };
 
 function Controls({
+  isStart,
+  isEnd,
   hasPrev,
   hasNext,
   setPrevIndex,
   setNextIndex,
+  startOver,
 }: ControlsProps) {
   return (
-    <div className="game-controls">
-      <button
-        className="button secondary"
-        onClick={setPrevIndex}
-        disabled={!hasPrev}
-      >Back</button>
-      <button
-        className="button secondary"
-        onClick={setNextIndex}
-        disabled={!hasNext}
-      >Next</button>
+    <div className="game-controls theme-dark">
+      {isStart ? (
+        <a href="/">
+          <button className="button secondary">Home</button>
+        </a>
+      ) : (
+        <button
+          className="button secondary"
+          onClick={setPrevIndex}
+          disabled={!hasPrev}
+        >Back</button>
+      )}
+      {isEnd && (
+        <button
+          className="button secondary"
+          onClick={startOver}
+        >Play Again</button>
+      )}
+      {isEnd ? (
+        <a href="/">
+          <button className="button secondary">Home</button>
+        </a>
+      ) : (
+        <button
+          className="button secondary"
+          onClick={setNextIndex}
+          disabled={!hasNext}
+        >Next</button>
+      )}
     </div>
   );
 }
@@ -308,6 +332,8 @@ export default function Game({ scenes }: GameProps) {
 
   const { dialogue, decision, prompt, custom } = scenes[index];
 
+  const isStart = index === 0;
+  const isEnd = index === scenes.length - 1;
   const hasNextScene = index < scenes.length - 1;
   const notSkippable = decision != null || prompt != null;
   const hasPrev = index > 0;
@@ -318,17 +344,21 @@ export default function Game({ scenes }: GameProps) {
     if (next >= scenes.length) return n;
     return storeIndex(n + 1);
   });
+  const startOver = () => setIndex(() => storeIndex(0));
   const controlsProps = {
+    isStart,
+    isEnd,
     hasPrev,
     hasNext,
     setPrevIndex,
     setNextIndex,
+    startOver,
   };
   const nextProps = { setNextIndex };
   const varProps = { variables, setVariable };
 
   return (
-    <>
+    <div className="mobile theme-light">
       <div className="game-container">
         {dialogue && <Dialogue {...{ ...dialogue, variables }} />}
         {decision && <Decision {...{ ...decision, ...nextProps }} />}
@@ -336,6 +366,6 @@ export default function Game({ scenes }: GameProps) {
         {custom && custom.component}
       </div>
       <Controls {...controlsProps} />
-    </>
+    </div>
   );
 }

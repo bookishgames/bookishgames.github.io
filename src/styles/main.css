@@ -3,19 +3,26 @@ html {
   --main: #30566d;
   --main-dark: #011421;
   --main-light: rgb(179, 238, 255);
-  --accent: rgb(255, 44, 160);
+  --main-accent: #D8A661;
   --font-size: 20px;
   --unit: 10px;
   --unit2x: 20px;
   --unit-negative: -10px;
-  --max-mobile-width: 412px;
+  --max-mobile-width: 430px;
   background: var(--main-dark);
   font-size: 0;
 }
 
-body {
-  box-sizing: border-box;
+.theme-light {
   background: var(--blank);
+}
+
+.theme-dark {
+  background: var(--main-dark);
+}
+
+.mobile {
+  box-sizing: border-box;
   margin: 0 auto;
   max-width: var(--max-mobile-width);
   height: 100vh;
@@ -36,7 +43,32 @@ pre {
   margin: var(--unit);
   line-height: 1.1;
   font-family: "Heebo", sans-serif;
+}
+
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5,
+.theme-light h6,
+.theme-light p,
+.theme-light button,
+.theme-light input,
+.theme-light pre {
   color: var(--main-dark);
+}
+
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3,
+.theme-dark h4,
+.theme-dark h5,
+.theme-dark h6,
+.theme-dark p,
+.theme-dark button,
+.theme-dark input,
+.theme-dark pre {
+  color: var(--blank);
 }
 
 h1,
@@ -77,6 +109,14 @@ pre {
   font-family: monospace;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+.centered {
+  text-align: center;
+}
+
 button,
 input {
   box-sizing: border-box;
@@ -94,24 +134,51 @@ input {
 
 .button.primary {
   background: var(--main);
+}
+
+.theme-light .button.primary {
   border: 1px solid var(--main-dark);
   color: var(--blank);
 }
 
-.button.primary:not([disabled]):hover {
-  border: 1px solid var(--accent);
-  background: var(--accent);
+.theme-light .button.primary:not([disabled]):hover {
+  border: 1px solid var(--main-accent);
+  background: var(--main-accent);
+  color: var(--blank);
+}
+
+.theme-dark .button.primary {
+  border: 1px solid var(--main-accent);
+  background: var(--main-accent);
+  color: var(--blank);
+}
+
+.theme-dark .button.primary:not([disabled]):hover {
+  border: 1px solid var(--main-accent);
+  background: var(--main-accent);
   color: var(--blank);
 }
 
 .button.secondary {
   background: transparent;
+}
+
+.theme-light .button.secondary {
   border: 1px solid var(--main-dark);
 }
 
-.button.secondary:not([disabled]):hover {
+.theme-light .button.secondary:not([disabled]):hover {
   background: var(--main);
   color: var(--blank);
+}
+
+.theme-dark .button.secondary {
+  border: 1px solid var(--blank);
+}
+
+.theme-dark .button.secondary:not([disabled]):hover {
+  background: var(--blank);
+  color: var(--main-dark);
 }
 
 .input {
@@ -119,10 +186,68 @@ input {
   border: 1px solid var(--main-dark);
 }
 
+.site-container,
 .game-container,
 .game-controls {
   box-sizing: border-box;
   padding: var(--unit);
+}
+
+.site-container {
+  padding: var(--unit2x);
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.home h1,
+.home h2 {
+  color: var(--main-accent);
+}
+
+.home h1,
+.home h2,
+.home p {
+  text-align: center;
+  margin: var(--unit2x) auto;
+}
+
+.home h1 {
+  font-size: 60px;
+}
+
+.home h2 {
+  font-size: 45px;
+}
+
+.home .button {
+  padding: var(--unit) var(--unit2x);
+}
+
+.home-logo {
+  text-align: center;
+}
+
+.home-logo img {
+  display: inline-block;
+  width: 100%;
+  max-width: 200px;
+  margin: var(--unit) auto;
+}
+
+.game-book-container {
+  margin: var(--unit);
+  text-align: center;
+}
+
+.game-book-container .game-book {
+  margin: var(--unit2x) auto;
+  display: inline-block;
+  max-width: 300px;
+}
+
+.game-book-container .game-book img {
+  width: 100%;
+  ;
 }
 
 .game-container {
@@ -133,11 +258,13 @@ input {
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
+.site-container::-webkit-scrollbar,
 .game-container::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
+.site-container,
 .game-container {
   -ms-overflow-style: none;
   /* IE and Edge */
@@ -149,11 +276,26 @@ input {
   height: var(--controls-height);
   display: flex;
   justify-content: space-between;
-  background: rgba(0, 0, 0, 0.035);
 }
 
 .game-controls .button {
   padding: var(--unit) var(--unit2x);
+}
+
+@media (max-width: 400px) {
+
+  .game-controls .button {
+    font-size: 18px;
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .game-controls .button {
+    font-size: 16px;
+  }
+
 }
 
 .game-content {
