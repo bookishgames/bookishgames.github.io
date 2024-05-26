@@ -1,8 +1,12 @@
 /* global document */
-import React, { useEffect } from 'react'
-import { createRoot } from 'react-dom/client'
-import { useNavigate } from 'react-router-dom'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Game from './Game';
+
+import './styles/main.css';
 
 // Set page title for entire app
 document.title = 'Bookish Games';
@@ -25,7 +29,7 @@ function AppRouting() {
   return (
     <Routes>
       <Route index element={<h1>Bookish Games</h1>} />
-      <Route path="jungle" element={<h1>Jungle Portal</h1>} />
+      <Route path="jungle" element={<Game />} />
       <Route path="*" element={<><h1>Error 404</h1><p>You might be lost.</p></>} />
     </Routes>
   );
