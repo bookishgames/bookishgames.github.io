@@ -90,7 +90,8 @@ function OrientationSlider({
 
 const TOTAL_DEGREES = 360;
 const QUARTER_DEGREES = 90;
-const MIN_TIME_MS = 1000;
+const MIN_TIME_MS = 750;
+const ADVANCE_ACTIVATE_DELAY_MS = 2000;
 
 function getSymbolForDegrees(symbols: string[], degrees: number): string {
   const degreesPerSymbol = TOTAL_DEGREES / symbols.length;
@@ -145,7 +146,7 @@ export default function Portal({ allSymbols, goalSymbols }: PortalProps) {
     if (isActivated) {
       setTimeout(() => {
         gameContext.setNextIndex();
-      }, 2 * MIN_TIME_MS);
+      }, ADVANCE_ACTIVATE_DELAY_MS);
     }
   }, [gameContext, progress]);
 

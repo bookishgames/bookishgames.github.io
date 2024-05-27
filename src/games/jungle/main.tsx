@@ -506,11 +506,11 @@ export const SCENES: SceneData[] = [
       choices: [
         {
           name: "Canada Lynx",
-          message: "That's not it. Try again.",
+          message: "That's not it. Try again. I wonder where you could find a Spanish-speaking lynx...",
         },
         {
           name: "Eurasian Lynx",
-          message: "That's not it. Try again.",
+          message: "That's not it. Try again. I wonder where you could find a Spanish-speaking lynx...",
         },
         {
           name: "Iberian Lynx",
