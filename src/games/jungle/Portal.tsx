@@ -1,8 +1,10 @@
 /* global window */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { GameContext, GameContextProps } from "../../Game";
 
 type PortalProps = {
-  destination: string;
+  allSymbols: string;
+  goalSymbols: string;
 };
 
 type ModernDeviceOrientationEvent = DeviceOrientationEvent & {
@@ -75,10 +77,10 @@ function OrientationSlider({
       <p>If your gyroscope isn't working, you can use this slider to control the portal.</p>
       <input
         type="range"
-        min={0} max={360}
+        min={0} max={TOTAL_DEGREES}
         value={sliderOrientation.alpha}
         onChange={(e) => {
-          const alpha = parseInt(e.target.value, 10);
+          const alpha = parseInt(e.target.value, 10) % TOTAL_DEGREES;
           setSliderOrientation((d) => ({ ...d, alpha }));
         }}
       />
@@ -88,9 +90,36 @@ function OrientationSlider({
 
 const TOTAL_DEGREES = 360;
 const QUARTER_DEGREES = 90;
+const MIN_TIME_MS = 1000;
 
-export default function Portal({ destination }: PortalProps) {
-  const symbols = destination.toUpperCase().split("");
+function getSymbolForDegrees(symbols: string[], degrees: number): string {
+  const degreesPerSymbol = TOTAL_DEGREES / symbols.length;
+  const halfDegreeSegment = degreesPerSymbol / 2;
+  for (let i = 0; i < symbols.length; i++) {
+    const symbol = symbols[i];
+    const accumulatedDegrees = degreesPerSymbol * i;
+    const delta = Math.abs(degrees - accumulatedDegrees);
+    if (delta <= halfDegreeSegment) {
+      return symbol;
+    }
+  }
+
+  return symbols[0];
+}
+
+function chunkSymbols(symbols: string): React.JSX.Element {
+  return (
+    <>
+      {symbols.split("").map((s, i) => (
+        <span key={i} className="chunk">{s}</span>
+      ))}
+    </>
+  );
+}
+
+export default function Portal({ allSymbols, goalSymbols }: PortalProps) {
+  const symbols = allSymbols.toUpperCase().split("");
+  const targetSymbols = goalSymbols.toUpperCase();
   const degreesPerSymbol = TOTAL_DEGREES / symbols.length;
   const deviceOrientation = useDeviceOrientation();
   const [sliderOrientation, setSliderOrientation] = useState<OrientationData>({
@@ -102,8 +131,63 @@ export default function Portal({ destination }: PortalProps) {
   const pointerDegrees = (orientation.alpha + QUARTER_DEGREES) % TOTAL_DEGREES;
   const sliderProps = { sliderOrientation: orientation, setSliderOrientation };
 
+  const [lastSymbol, setLastSymbol] = useState<string>('');
+  const [lastTime, setLastTime] = useState<number>(Date.now());
+  const [progress, setProgress] = useState<number>(0);
+  const nextTargetSymbol = targetSymbols[progress];
+  const progressSymbols = targetSymbols.split("").map((l, i) => (
+    i < progress ? l : "_"
+  )).join("");
+  const isActivated = progressSymbols === targetSymbols;
+
+  const gameContext = useContext<GameContextProps>(GameContext);
+  useEffect(() => {
+    if (isActivated) {
+      setTimeout(() => {
+        gameContext.setNextIndex();
+      }, 2 * MIN_TIME_MS);
+    }
+  }, [gameContext, progress]);
+
+  useEffect(() => {
+    const newSymbol = getSymbolForDegrees(symbols, orientation.alpha);
+    setLastSymbol(newSymbol);
+  }, [orientation, symbols]);
+
+  useEffect(() => {
+    // Update the last change timestamp whenever the value changes
+    setLastTime(Date.now());
+  }, [lastSymbol]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (Date.now() - lastTime < MIN_TIME_MS) return;
+      // Perform the action if the value has not changed for the min time
+      if (lastSymbol === nextTargetSymbol) {
+        setProgress((n) => {
+          const newIndex = n + 1;
+          if (newIndex > targetSymbols.length) return n;
+          return newIndex;
+        });
+      }
+
+    }, 3000);
+
+    // Clear the timeout if the component unmounts or if the value changes
+    return () => clearTimeout(timer);
+  }, [lastTime]);
+
   return (
     <div className="game-content portal">
+      <div className="destination">
+        <h1>{chunkSymbols(targetSymbols)}</h1>
+        <h1>{chunkSymbols(progressSymbols)}</h1>
+        {isActivated ? (
+          <p>You activated the portal!</p>
+        ) : (
+          <p>Use your gyroscope to select the letters that spell the destination. Hold the pointer on a letter for one second to select it.</p>
+        )}
+      </div>
       <div className="outer-ring">
         <div className="inner-ring">
           <div className="pointer" style={{

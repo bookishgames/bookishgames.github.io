@@ -613,60 +613,19 @@ export const SCENES: SceneData[] = [
   {
     dialogue: {
       character: Character.Gabby,
-      message: "Alright, time to activate this portal! Are you going to open the portal by yourself or with a friend?",
-    },
-    decision: {
-      choices: [
-        {
-          name: "By Myself",
-          isCorrect: true,
-        },
-        {
-          name: "With a Friend",
-          isCorrect: true,
-        },
-      ]
-    }
-  },
-  {
-    dialogue: {
-      character: Character.Gabby,
-      message: "Fantastic. You got this, {NAME}!",
-    },
-  },
-  {
-    dialogue: {
-      character: Character.Gabby,
-      message: "Excellent, twice the power! One of you should stand near the left staircase and one of you should stand near the right staircase. Once you pick a side, select your side on your phone.",
-    },
-    decision: {
-      choices: [
-        {
-          name: "Left Staircase",
-          isCorrect: true,
-        },
-        {
-          name: "Right Staircase",
-          isCorrect: true,
-        },
-      ]
-    }
-  },
-  {
-    dialogue: {
-      character: Character.Gabby,
-      message: "Your phone has a device inside it called a gyroscope.\nA gyroscope is a tool that measures rotation. I have connected your gyroscopes to the portal, so you will be able to control the portal by rotating your phones.",
+      message: "Alright, time to activate this portal!\nYour phone has a device inside it called a gyroscope.\nA gyroscope is a tool that measures rotation. I have connected your gyroscope to the portal, so you will be able to control the portal by rotating your phone.",
     },
   },
   {
     dialogue: {
       character: Character.Bird,
-      message: "The portal rings are lined with ancient letters. When you spell out your destination of choice, the portal will open and take your friend Lalo there! Look at your phones to see the next letter. Then, rotate until you can select that letter. Hold still for a second to lock in your choice.\nIf you don’t see the letter on your portal ring, it must be on your friend’s portal ring!",
+      message: "The portal rings are lined with letters. When you spell out your destination of choice, the portal will open and take your friend Lalo there! Look at your phones to see the next letter. Then, rotate until you can select that letter. Hold still for one second to lock in your choice.",
     },
   },
   {
     custom: {
-      component: <Portal destination="ANDALUSIA" />,
+      component: <Portal allSymbols="DALNUIS" goalSymbols="ANDALUSIA" />,
+      disableNext: true,
     }
   },
   {

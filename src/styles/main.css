@@ -423,6 +423,20 @@ input {
   overflow-x: hidden;
 }
 
+.portal .destination {
+  margin: var(--unit);
+  padding: var(--unit);
+}
+
+.portal .destination h1 .chunk {
+  display: inline-block;
+  width: 30px;
+}
+
+.portal .destination p {
+  margin: var(--unit2x) var(--unit);
+}
+
 .portal .inner-ring,
 .portal .outer-ring {
   box-sizing: border-box;

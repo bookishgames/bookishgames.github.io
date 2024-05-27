@@ -1,5 +1,5 @@
 /* global localStorage */
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export enum Character {
   Lucy = 'lucy',
@@ -40,6 +40,7 @@ type PromptData = {
 
 type CustomData = {
   component: React.JSX.Element;
+  disableNext?: boolean;
 };
 
 export type SceneData = {
@@ -291,6 +292,16 @@ type GameProps = {
   scenes: SceneData[],
 };
 
+export type GameContextProps = {
+  setNextIndex: () => void;
+  variables: GameVariables;
+};
+
+export const GameContext = createContext<GameContextProps>({
+  setNextIndex: () => { },
+  variables: {},
+});
+
 const SCENE_INDEX_KEY = 'bookish__jungle__scene_index';
 const GAME_VARIABLES_KEY = 'bookish__jungle__game_variables';
 
@@ -335,9 +346,11 @@ export default function Game({ scenes }: GameProps) {
   const isStart = index === 0;
   const isEnd = index === scenes.length - 1;
   const hasNextScene = index < scenes.length - 1;
-  const notSkippable = decision != null || prompt != null;
+  const isCustomDisabled = custom?.disableNext ?? false;
+  const notSkippable = decision != null || prompt != null || isCustomDisabled;
   const hasPrev = index > 0;
   const hasNext = !notSkippable && hasNextScene;
+
   const setPrevIndex = () => setIndex(n => storeIndex(n - 1));
   const setNextIndex = () => setIndex((n) => {
     const next = n + 1;
@@ -356,6 +369,7 @@ export default function Game({ scenes }: GameProps) {
   };
   const nextProps = { setNextIndex };
   const varProps = { variables, setVariable };
+  const gameContextProps = { setNextIndex, variables };
 
   return (
     <div className="mobile theme-light">
@@ -363,9 +377,13 @@ export default function Game({ scenes }: GameProps) {
         {dialogue && <Dialogue {...{ ...dialogue, variables }} />}
         {decision && <Decision {...{ ...decision, ...nextProps }} />}
         {prompt && <Prompt {...{ ...prompt, ...nextProps, ...varProps }} />}
-        {custom && custom.component}
+        {custom && (
+          <GameContext.Provider value={gameContextProps}>
+            {custom.component}
+          </GameContext.Provider>
+        )}
       </div>
       <Controls {...controlsProps} />
-    </div>
+    </div >
   );
 }
