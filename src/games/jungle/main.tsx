@@ -423,6 +423,8 @@ export const SCENES: SceneData[] = [
       placeholder: "Translate ayudarme",
       answer: "help me",
       message: "That's not it. Try again.",
+      hint: "In Spanish, ayudarme means: \"help me\"",
+      hintAfterAttempts: 3,
     }
   },
   {
@@ -456,6 +458,8 @@ export const SCENES: SceneData[] = [
       placeholder: "Who signed the mural?",
       answer: "fnnch",
       message: "That's not it. Try again.",
+      hint: "The artist's signature is in the bottom right corner of the mural: \"fnnch\"",
+      hintAfterAttempts: 3,
     }
   },
   ...getDialogueSequence({

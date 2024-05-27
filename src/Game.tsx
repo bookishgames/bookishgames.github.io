@@ -36,6 +36,8 @@ type PromptData = {
   variableKey?: string;
   answer?: string;
   message?: string;
+  hint?: string;
+  hintAfterAttempts?: number;
 };
 
 type CustomData = {
@@ -183,12 +185,18 @@ function Prompt({
   variableKey,
   answer,
   message,
+  hint,
+  hintAfterAttempts,
   setNextIndex,
   variables,
   setVariable,
 }: PromptProps) {
   const [value, setValue] = useState<string>('');
   const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [attempts, setAttempts] = useState<number>(0);
+  const showHint = (
+    hint != null && hintAfterAttempts != null && attempts >= hintAfterAttempts
+  );
 
   useEffect(() => {
     if (variableKey == null) return;
@@ -212,12 +220,14 @@ function Prompt({
       setNextIndex();
     } else {
       setShowMessage(true);
+      setAttempts((n) => n + 1);
     }
   };
 
   return (
     <div className="prompt game-content">
       {showMessage && <p>{message}</p>}
+      {showHint && <p>{hint}</p>}
       <div className="input-row">
         <input
           className="input"
